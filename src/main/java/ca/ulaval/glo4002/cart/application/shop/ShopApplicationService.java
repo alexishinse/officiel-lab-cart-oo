@@ -7,20 +7,23 @@ import java.util.stream.Collectors;
 import ca.ulaval.glo4002.cart.domain.shop.PrimeShopItem;
 import ca.ulaval.glo4002.cart.domain.shop.ShopItem;
 import ca.ulaval.glo4002.cart.domain.shop.StandardShopItem;
+import ca.ulaval.glo4002.cart.interfaces.rest.PersistenceProvider;
+import ca.ulaval.glo4002.cart.interfaces.rest.ShopPersistence;
+
 
 public class ShopApplicationService {
-    private final ShopRepository shopRepository;
+    private final ShopPersistence shopRepository;
 
     public ShopApplicationService() {
-        this.shopRepository = new ShopRepository();
+        this.shopRepository = PersistenceProvider.getShopRepository();
     }
 
     public List<ShopItem> listAvailableItems() {
-        List<ShopItem> items = shopRepository.readShopFromFile();
+        List<ShopItem> items = shopRepository.GetShops();
         if (items.isEmpty()) {
             Logger.getGlobal().info("Prefilling data in the shop for the demo");
             prefillDemoData();
-            items = shopRepository.readShopFromFile();
+            items = shopRepository.GetShops();
         }
 
         return items.stream().filter(ShopItem::isAvailable).collect(Collectors.toList());
@@ -43,9 +46,9 @@ public class ShopApplicationService {
     }
 
     private void addItem(ShopItem item) {
-        List<ShopItem> items = shopRepository.readShopFromFile();
+        List<ShopItem> items = shopRepository.GetShops();
         items.add(item);
 
-        shopRepository.persistShop(items);
+        shopRepository.CreateShops(items);
     }
 }

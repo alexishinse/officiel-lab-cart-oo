@@ -11,8 +11,10 @@ import javax.xml.bind.Unmarshaller;
 import ca.ulaval.glo4002.cart.application.PersistenceException;
 import ca.ulaval.glo4002.cart.application.XmlUtils;
 import ca.ulaval.glo4002.cart.domain.cart.Cart;
+import ca.ulaval.glo4002.cart.interfaces.rest.CartPersistence;
 
-public class CartRepository {
+
+public class CartRepository extends CartPersistence {
     private static final String CART_STORAGE = "cart-storage";
 
     private static File storageFile;
@@ -21,7 +23,7 @@ public class CartRepository {
         storageFile = XmlUtils.createStorageFile(CART_STORAGE);
     }
 
-    public List<Cart> retrieveCarts() {
+    public List<Cart> GetCarts() {
         Unmarshaller unmarshaller = XmlUtils.createUnmarshaller();
         try {
             return ((CartList) unmarshaller.unmarshal(storageFile)).getCarts();
@@ -30,7 +32,7 @@ public class CartRepository {
         }
     }
 
-    public void persistCarts(List<Cart> carts) {
+    public void CreateCarts(List<Cart> carts) {
         Marshaller marshaller = XmlUtils.createMarshaller();
         try {
             marshaller.marshal(new CartList(carts), storageFile);
