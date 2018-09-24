@@ -9,7 +9,7 @@ import java.util.List;
 
 public class CartMemory extends CartPersistence {
 
-    private ArrayList<Cart> cartsInMemory;
+    private List<Cart> cartsInMemory;
 
     public CartMemory() {
         cartsInMemory = new ArrayList<Cart>();
@@ -19,8 +19,8 @@ public class CartMemory extends CartPersistence {
         return cartsInMemory;
     }
 
-    public void CreateCarts(List<Cart> carts) {
-        cartsInMemory.addAll(carts);
+    public void PersistCarts(List<Cart> carts) {
+        cartsInMemory = carts;
     }
 
 }

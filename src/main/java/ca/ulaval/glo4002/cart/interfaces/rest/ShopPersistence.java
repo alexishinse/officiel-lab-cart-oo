@@ -8,5 +8,5 @@ import java.util.List;
 public abstract class ShopPersistence {
     public abstract List<ShopItem> GetShops();
 
-    public abstract void CreateShops(List<ShopItem> items);
+    public abstract void PersistShops(List<ShopItem> items);
 }

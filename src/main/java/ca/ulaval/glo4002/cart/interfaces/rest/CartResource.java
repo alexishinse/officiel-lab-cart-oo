@@ -24,9 +24,9 @@ public class CartResource {
 	private CartApplicationService cartService;
 	private ShopApplicationService shopService;
 
-	public CartResource() {
-		this.cartService = new CartApplicationService();
-		this.shopService = new ShopApplicationService();
+	public CartResource(CartApplicationService _cartService, ShopApplicationService _shopService) {
+		this.cartService = _cartService;
+		this.shopService = _shopService;
 	}
 
 	@GET

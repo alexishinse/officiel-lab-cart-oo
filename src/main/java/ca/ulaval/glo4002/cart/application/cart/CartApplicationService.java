@@ -13,8 +13,8 @@ public class CartApplicationService {
 
     private CartPersistence cartRepository;
 
-	public CartApplicationService() {
-		this.cartRepository = PersistenceProvider.getCartRepository();
+	public CartApplicationService(CartPersistence _persistence) {
+		this.cartRepository = _persistence;
 	}
 
 	public Cart findOrCreateCartForClient(String email) {
@@ -31,14 +31,14 @@ public class CartApplicationService {
 
 		cart.addItem(new CartItem(item.getName(), 1, item.getItemPriceWithShipping()));
 
-		cartRepository.CreateCarts(carts);
+		cartRepository.PersistCarts(carts);
 	}
 
     private Cart getCartByOwner(String email, List<Cart> carts) {
 		return carts.stream().filter(c -> c.ownerEmail.equals(email)).findFirst().orElseGet(() -> {
 			Cart newCart = new Cart(email);
 			carts.add(newCart);
-			cartRepository.CreateCarts(carts);
+			cartRepository.PersistCarts(carts);
 			return newCart;
 		});
 	}

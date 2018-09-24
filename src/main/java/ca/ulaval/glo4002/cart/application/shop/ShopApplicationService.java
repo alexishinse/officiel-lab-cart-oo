@@ -13,14 +13,16 @@ import ca.ulaval.glo4002.cart.interfaces.rest.ShopPersistence;
 
 public class ShopApplicationService {
     private final ShopPersistence shopRepository;
+    private final boolean isInDemoMode;
 
-    public ShopApplicationService() {
-        this.shopRepository = PersistenceProvider.getShopRepository();
+    public ShopApplicationService(ShopPersistence _persistence, boolean _isInDemoMode) {
+        this.shopRepository = _persistence;
+        this.isInDemoMode = _isInDemoMode;
     }
 
     public List<ShopItem> listAvailableItems() {
         List<ShopItem> items = shopRepository.GetShops();
-        if (items.isEmpty()) {
+        if (items.isEmpty() && isInDemoMode) {
             Logger.getGlobal().info("Prefilling data in the shop for the demo");
             prefillDemoData();
             items = shopRepository.GetShops();
@@ -49,6 +51,6 @@ public class ShopApplicationService {
         List<ShopItem> items = shopRepository.GetShops();
         items.add(item);
 
-        shopRepository.CreateShops(items);
+        shopRepository.PersistShops(items);
     }
 }

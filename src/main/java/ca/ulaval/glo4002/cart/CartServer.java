@@ -1,5 +1,6 @@
 package ca.ulaval.glo4002.cart;
 
+import ca.ulaval.glo4002.cart.interfaces.rest.Contexte;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -22,10 +23,10 @@ public class CartServer implements Runnable {
 	public void run() {
 		Server server = new Server(PORT);
 		ServletContextHandler contextHandler = new ServletContextHandler(server, "/");
-
+		Contexte contexte = new Contexte();
 		// Configuration manuelle au lieu du package scanning
 		ResourceConfig packageConfig = new ResourceConfig()
-				.registerInstances(createClientResource(), createCartResource())
+				.registerInstances(contexte.CreateShopResource(), contexte.CreateCartResource())
 				.registerInstances(new PersistenceExceptionMapper(), new ItemNotFoundException())
 				.register(new CORSFilter());
 
@@ -42,13 +43,5 @@ public class CartServer implements Runnable {
 		} finally {
 			server.destroy();
 		}
-	}
-
-	private CartResource createCartResource() {
-		return new CartResource();
-	}
-
-	private Object createClientResource() {
-		return new ShopResource();
 	}
 }

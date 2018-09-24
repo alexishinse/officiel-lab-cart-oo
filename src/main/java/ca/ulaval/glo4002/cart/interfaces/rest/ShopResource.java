@@ -13,8 +13,8 @@ public class ShopResource {
 	
 	private ShopApplicationService shopService;
 
-	public ShopResource() {
-		this.shopService = new ShopApplicationService();
+	public ShopResource(ShopApplicationService _service) {
+		this.shopService = _service;
 	}
 	
 	@GET

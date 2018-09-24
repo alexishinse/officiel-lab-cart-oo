@@ -32,7 +32,7 @@ public class ShopRepository extends ShopPersistence {
         }
     }
 
-    public void CreateShops(List<ShopItem> items) {
+    public void PersistShops(List<ShopItem> items) {
         Marshaller marshaller = XmlUtils.createMarshaller();
         try {
             marshaller.marshal(new Shop(items), storageFile);

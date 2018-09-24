@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShopMemory extends ShopPersistence {
-    private ArrayList<ShopItem> shopsInMemory;
+    private List<ShopItem> shopsInMemory;
 
     public ShopMemory() {
         shopsInMemory = new ArrayList<ShopItem>();
@@ -17,8 +17,8 @@ public class ShopMemory extends ShopPersistence {
         return shopsInMemory;
     }
 
-    public void CreateShops(List<ShopItem> items) {
-        shopsInMemory.addAll(items);
+    public void PersistShops(List<ShopItem> items) {
+        shopsInMemory = items;
     }
 
 }

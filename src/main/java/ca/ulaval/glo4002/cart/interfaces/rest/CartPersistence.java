@@ -9,5 +9,5 @@ public abstract class CartPersistence {
 
      public abstract List<Cart> GetCarts();
 
-     public abstract void CreateCarts(List<Cart> carts);
+     public abstract void PersistCarts(List<Cart> carts);
 }

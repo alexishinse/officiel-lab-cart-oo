@@ -32,7 +32,7 @@ public class CartRepository extends CartPersistence {
         }
     }
 
-    public void CreateCarts(List<Cart> carts) {
+    public void PersistCarts(List<Cart> carts) {
         Marshaller marshaller = XmlUtils.createMarshaller();
         try {
             marshaller.marshal(new CartList(carts), storageFile);
